@@ -12,14 +12,18 @@ export class MainController {
     }
 
     @Get("numbers")
-    async numbersGet(@Query("from") from: Date, @Query("to") to: Date,) {
-        console.log(from, to);
-        return this.numberService.getList(from, to)
+    async numbersGet(@Query("from") from: string, @Query("to") to: string,) {
+        return this.numberService.getAvailable(from, to)
     }
 
     @Post("booking")
-    async bookingPost() {
-        return this.bookingService.create()
+    async bookingPost(@Query("from") from: Date, @Query("to") to: Date) {
+        await this.bookingService.create({
+            from,
+            to,
+            numberId: 1,
+        })
+        return 'ok'
     }
 
     @Get("report")

@@ -8,9 +8,14 @@ export class NumberService {
     constructor(private readonly client: Client) {
     }
 
-
-    async getList(from: Date, to: Date): Promise<Number[]> {
-        let {rows} = await this.client.query('SELECT * from numbers')
+    async getAvailable(from: string, to: string): Promise<Number[]> {
+        let {rows} = await this.client.query(`
+            select * from number where id not in (
+                    select  "numberId" from booking 
+                        where $1 between "from" and "to"
+                         or "from" between $2 and $3
+            )
+        `, [from, to, from])
         return rows
     }
 

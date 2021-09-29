@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:dev": "tsnd --respawn ./src/start.ts"
+    "start:dev": "tsnd --respawn ./src/start.ts",
+    "migrate": "ts-node ./src/migrate.ts"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.8",
