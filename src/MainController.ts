@@ -17,18 +17,23 @@ export class MainController {
     }
 
     @Post("booking")
-    async bookingPost(@Query("from") from: Date, @Query("to") to: Date) {
-        await this.bookingService.create({
-            from,
-            to,
-            numberId: 1,
-        })
+    async bookingPost(@Query("from") from: string, @Query("to") to: string, @Query("numberId") numberId: number) {
+        try {
+            await this.bookingService.create({
+                from,
+                to,
+                numberId,
+            })
+        } catch (e) {
+            return {
+                error: e.message
+            }
+        }
         return 'ok'
     }
 
     @Get("report")
     async reportGet(@Query("from") from: Date, @Query("to") to: Date,) {
-        console.log(from, to);
         return this.numberService.report(from, to)
     }
 

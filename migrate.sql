@@ -13,7 +13,8 @@ create table booking
     id serial,
     "from" date,
     "to" date,
-    "numberId" integer
+    "numberId" integer,
+    "price" decimal
 );
 
 alter table  booking owner to postgres;

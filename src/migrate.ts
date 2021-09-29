@@ -10,6 +10,7 @@ async function bootstrap() {
     let client = await app.resolve(Client)
     let result = await client.query(fs.readFileSync("./migrate.sql").toString())
     console.log(result);
+    await client.end()
 }
 
 bootstrap().catch(e => console.log(e.message))

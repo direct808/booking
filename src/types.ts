@@ -4,7 +4,7 @@ export interface Number {
 }
 
 export interface BookingCreateParams {
-    from: Date;
-    to: Date;
+    from: string;
+    to: string;
     numberId: number;
 }

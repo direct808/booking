@@ -1,20 +1,31 @@
 import {AppModule} from "./AppModule";
-import {NestExpressApplication} from "@nestjs/platform-express";
 import {NestFactory} from "@nestjs/core";
-import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import {Client} from "pg";
-import * as fs from "fs";
+import * as faker from "faker";
 
 async function bootstrap() {
     const app = await NestFactory.createApplicationContext(AppModule);
     let client = await app.resolve(Client)
 
-    // for(let i=1)
+    for (let i = 100; i < 199; i++) {
+        let result = await client.query(`
+            insert into number (title) values (${i})
+        `)
+        // console.log(result)
+    }
 
-    let result = await client.query("")
+    for (let i = 1; i < 100; i++) {
+        let date1 = faker.date.between('2021-01-01', '2021-11-30').toISOString()
+        let date2 = faker.date.between(date1, '2021-12-31').toISOString()
+        let numberId = faker.datatype.number(100)
+        console.log(numberId);
+        let result = await client.query(`
+            insert into booking ("from","to","numberId") values ('${date1}','${date2}' ,${numberId})
+        `)
+        // console.log(result)
+    }
+    await client.end()
 
-
-    console.log(result);
 }
 
 bootstrap().catch(e => console.log(e.message))
