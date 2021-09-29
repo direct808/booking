@@ -17,4 +17,4 @@ yarn seed
 ```
 ## Использование
 
-Открыть в браузере http://localhost:8888/api/
+Ввполнить "yarn start" и открыть в браузере http://localhost:8888/api/
